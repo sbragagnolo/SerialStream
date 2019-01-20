@@ -13,5 +13,5 @@ BaselineOfSerialStream >> baseline: spec [
 			spec
 				baseline: 'Taskit'
 				with: [ spec repository: 'github://sbragagnolo/taskit/src' ].
-			spec package: #SerialStream with: [ spec requires: #(taskit) ] ]
+			spec package: #SerialStream with: [ spec requires: #(Taskit) ] ]
 ]
