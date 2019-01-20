@@ -21,6 +21,13 @@ SSDedicatedThreadStrategy >> cleanUpBuffer [
 ]
 
 { #category : #'as yet unclassified' }
+SSDedicatedThreadStrategy >> close [
+	self stopReader.
+	super close.
+	
+]
+
+{ #category : #'as yet unclassified' }
 SSDedicatedThreadStrategy >> configure [
 	buffer := SharedQueue new.
 	mutex := Mutex new.
@@ -57,7 +64,7 @@ SSDedicatedThreadStrategy >> read [
 { #category : #'as yet unclassified' }
 SSDedicatedThreadStrategy >> startReader [
 	reader := TKTParameterizableService new.
-	reader name: 'Stream Reader on' , port printString .
+	reader name: 'Stream Reader on' , port printString, ' ', self hash asString .
 	reader step: [ self consumePort ].
 	reader onStoppedDo: [ self halt ].
 	reader start

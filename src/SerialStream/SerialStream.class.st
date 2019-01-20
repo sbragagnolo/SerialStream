@@ -59,6 +59,11 @@ SerialStream >> cleanup [
 ]
 
 { #category : #accessing }
+SerialStream >> close [
+	io close
+]
+
+{ #category : #accessing }
 SerialStream >> initialize [ 
 	buffer := String new.
 	position := 0.
@@ -114,19 +119,19 @@ SerialStream >> reset [
 ]
 
 { #category : #accessing }
-SerialStream >> upToAll: anObject [
+SerialStream >> upToAll: anArray [
 	"fast version using indexOf:"
 
 	| start end intent |
 	intent := 0.
-	[ end := buffer indexOfSubCollection: anObject startingAt: position + 1 ifAbsent: [ 0 ].
+	[ end := buffer indexOfSubCollection: anArray startingAt: position + 1 ifAbsent: [ 0 ].
 	end = 0 and: [ intent < 10 ] ]
 		whileTrue: [ intent := intent + 1.
 			self readPort ].
 	(end = 0 or: [ end = (position + 1) ])
 		ifTrue: [ ^ '' ].
 	start := position + 1.
-	position := end - 1.
+	position := end - 1 + anArray size.
 	^ buffer copyFrom: start to: end - 1
 ]
 

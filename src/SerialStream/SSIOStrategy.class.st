@@ -23,6 +23,11 @@ SSIOStrategy >> cleanUpBuffer [
 ]
 
 { #category : #'as yet unclassified' }
+SSIOStrategy >> close [
+	port := nil
+]
+
+{ #category : #'as yet unclassified' }
 SSIOStrategy >> configure [
 ]
 
